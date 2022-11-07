@@ -19,17 +19,12 @@ def aborta_se_o_aluno_nao_existe(matricula):
     if encontrei == False:
         abort(404, mensagem="O aluno com matricula = {} não existe".format(matricula)) #404:Not Found
 
-# Parse dos dados enviados na requisição no formato JSON:
 parser = reqparse.RequestParser()
 parser.add_argument('matricula', type=int, help='matricula do aluno')
 parser.add_argument('nome', type=str, help='nome do aluno')
 parser.add_argument('nota', type=float, help='nota do aluno')
 
 
-# Produto:
-# 1) Apresenta um único produto.
-# 2) Remove um único produto.
-# 3) Atualiza (substitui) um produto.
 class Aluno(Resource):
     def get(self, matricula):
         aborta_se_o_aluno_nao_existe(matricula)
@@ -48,10 +43,6 @@ class Aluno(Resource):
                 aluno['nota'] = args['nota']
                 break
         return aluno, 200, #200: OK
-
-# ListaProduto:
-# 1) Apresenta a lista de alunos.
-# 2) Insere um novo aluno.
 
 class ListaAluno(Resource):
     def get(self):
